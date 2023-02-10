@@ -61,17 +61,23 @@ module.exports = GccMakeRun =
       default: ''
       order: 8
       description: 'The output extension, eg: `out`, in Windows compilers will use `exe` by default'
+    'dir':
+      title: 'Output Directory'
+      type: 'string'
+      default: ''
+      order: 9
+      description: 'The output directory, eg: `out`'
     'terminal':
       title: 'Terminal Start Command (only Linux platform)'
       type: 'string'
       default: 'xterm -T $title -e'
-      order: 9
+      order: 10
       description: 'Customize the terminal start command, eg: `gnome-terminal -t $title -x bash -c`'
     'debug':
       title: 'Debug Mode'
       type: 'boolean'
       default: false
-      order: 10
+      order: 11
       description: 'Turn on this flag to log the executed command and output in console'
 
   gccMakeRunView: null
@@ -127,6 +133,8 @@ module.exports = GccMakeRun =
       info.exe = info.name
       ext = atom.config.get('gcc-make-run.ext')
       if ext then info.exe += ".#{ext}" else if process.platform == 'win32' then info.exe += '.exe'
+      dir = atom.config.get('gcc-make-run.dir')
+      if dir then info.exe = "#{dir}/" + info.exe
       compiler = atom.config.get("gcc-make-run.#{grammar}")
       cflags = atom.config.get('gcc-make-run.cflags')
       ldlibs = atom.config.get('gcc-make-run.ldlibs')
