@@ -19,11 +19,11 @@ class RunOptionsView extends View
             @td => @label 'Compiler Flags:'
             @td => @tag 'atom-text-editor', class: 'editor mini', mini: '', keydown: 'traverseInputFocus', outlet: 'cflags'
           @tr =>
-            @td => @label 'Link Libraries:'
-            @td => @tag 'atom-text-editor', class: 'editor mini', mini: '', keydown: 'traverseInputFocus', outlet: 'ldlibs'
-          @tr =>
             @td => @label 'Output Directory:'
             @td => @tag 'atom-text-editor', class: 'editor mini', mini: '', keydown: 'traverseInputFocus', outlet: 'dir'
+          @tr =>
+            @td => @label 'Link Libraries:'
+            @td => @tag 'atom-text-editor', class: 'editor mini', mini: '', keydown: 'traverseInputFocus', outlet: 'ldlibs'
           @tr =>
             @td => @label 'Run Arguments:'
             @td => @tag 'atom-text-editor', class: 'editor mini', mini: '', keydown: 'traverseInputFocus', outlet: 'args'
@@ -77,11 +77,11 @@ class RunOptionsView extends View
     @saveOptions() if shouldSave
 
   restoreOptions: ->
-    cfgs = ['cflags', 'ldlibs', 'dir', 'args']
+    cfgs = ['cflags', 'dir', 'ldlibs', 'args']
     @[cfg].get(0).getModel().setText(atom.config.get("gcc-make-run.#{cfg}")) for cfg in cfgs
 
   saveOptions: ->
-    cfgs = ['cflags', 'ldlibs', 'dir',  'args']
+    cfgs = ['cflags', 'dir', 'ldlibs', 'args']
     atom.config.set("gcc-make-run.#{cfg}", @[cfg].get(0).getModel().getText()) for cfg in cfgs
 
   run: ->
