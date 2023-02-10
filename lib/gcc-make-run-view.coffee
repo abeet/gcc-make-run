@@ -22,6 +22,9 @@ class RunOptionsView extends View
             @td => @label 'Link Libraries:'
             @td => @tag 'atom-text-editor', class: 'editor mini', mini: '', keydown: 'traverseInputFocus', outlet: 'ldlibs'
           @tr =>
+            @td => @label 'Output Directory:'
+            @td => @tag 'atom-text-editor', class: 'editor mini', mini: '', keydown: 'traverseInputFocus', outlet: 'dir'
+          @tr =>
             @td => @label 'Run Arguments:'
             @td => @tag 'atom-text-editor', class: 'editor mini', mini: '', keydown: 'traverseInputFocus', outlet: 'args'
         @div class: 'btn-group', =>
@@ -74,11 +77,11 @@ class RunOptionsView extends View
     @saveOptions() if shouldSave
 
   restoreOptions: ->
-    cfgs = ['cflags', 'ldlibs', 'args']
+    cfgs = ['cflags', 'ldlibs', 'dir', 'args']
     @[cfg].get(0).getModel().setText(atom.config.get("gcc-make-run.#{cfg}")) for cfg in cfgs
 
   saveOptions: ->
-    cfgs = ['cflags', 'ldlibs', 'args']
+    cfgs = ['cflags', 'ldlibs', 'dir',  'args']
     atom.config.set("gcc-make-run.#{cfg}", @[cfg].get(0).getModel().getText()) for cfg in cfgs
 
   run: ->
